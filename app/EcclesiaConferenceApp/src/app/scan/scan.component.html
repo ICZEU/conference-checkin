@@ -1,0 +1,11 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Scan"></Label>
+</ActionBar>
+
+<GridLayout class="page page-content">
+    <StackLayout>
+        <Label class="page-icon fa" text="&#xf002;"></Label>
+        <Button text="Scan QR-Code" (tap)="scanBarcode()"></Button>
+        <Label [text]="result"></Label>
+    </StackLayout>
+</GridLayout>

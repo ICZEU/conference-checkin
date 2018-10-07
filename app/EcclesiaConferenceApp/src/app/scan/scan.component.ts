@@ -1,28 +1,33 @@
 import { Component, OnInit } from "@angular/core";
 import { BarcodeScanner } from "nativescript-barcodescanner";
+import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 
 @Component({
-    selector: "Search",
+    selector: "Scan",
     moduleId: module.id,
-    templateUrl: "./search.component.html"
+    templateUrl: "./scan.component.html"
 })
-export class SearchComponent implements OnInit {
+export class ScanComponent implements OnInit {
+
+    result: string;
+
     constructor(
         private barcodeScanner: BarcodeScanner
     ) {}
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     scanBarcode() {
-        this.barcodeScanner.scan({
+        this.barcodeScanner.scan({ 
             formats: "QR_CODE",
-            closeCallback: function () { console.log("Scanner closed"); },
+            showTorchButton: true,
+            beepOnScan: true,
+            resultDisplayDuration: 0
         }).then((result) => {
-            console.log("Format: " + result.format + ",\nValue: " + result.text);
+            this.result = result.text;
           }, (errorMessage) => {
             console.log("No scan. " + errorMessage);
           }
         );
-      }
+    }
 }
