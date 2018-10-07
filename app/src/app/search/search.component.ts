@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { BarcodeScanner } from "nativescript-barcodescanner";
 
 @Component({
     selector: "Search",
@@ -6,11 +7,22 @@ import { Component, OnInit } from "@angular/core";
     templateUrl: "./search.component.html"
 })
 export class SearchComponent implements OnInit {
-    constructor() {
-        // Use the constructor to inject services.
-    }
+    constructor(
+        private barcodeScanner: BarcodeScanner
+    ) {}
 
     ngOnInit(): void {
-        // Use the "ngOnInit" handler to initialize data for the view.
     }
+
+    scanBarcode() {
+        this.barcodeScanner.scan({
+            formats: "QR_CODE",
+            closeCallback: function () { console.log("Scanner closed"); },
+        }).then((result) => {
+            console.log("Format: " + result.format + ",\nValue: " + result.text);
+          }, (errorMessage) => {
+            console.log("No scan. " + errorMessage);
+          }
+        );
+      }
 }
