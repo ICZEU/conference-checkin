@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BarcodeScanner } from "nativescript-barcodescanner";
-import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
     selector: "Scan",
@@ -9,10 +9,9 @@ import { alert, AlertOptions } from "tns-core-modules/ui/dialogs";
 })
 export class ScanComponent implements OnInit {
 
-    result: string;
-
     constructor(
-        private barcodeScanner: BarcodeScanner
+        private barcodeScanner: BarcodeScanner,
+        private routerExtensions: RouterExtensions
     ) {}
 
     ngOnInit(): void {}
@@ -23,11 +22,21 @@ export class ScanComponent implements OnInit {
             showTorchButton: true,
             beepOnScan: true,
             resultDisplayDuration: 0
-        }).then((result) => {
-            this.result = result.text;
-          }, (errorMessage) => {
-            console.log("No scan. " + errorMessage);
-          }
+        }).then(
+            (result) => {
+                this.navigateToResultPage(result.text);
+            },
+            (errorMessage) => {
+                console.log("No scan. " + errorMessage);
+            }
         );
+    }
+
+    navigateToResultPage(qrCodeResult) {
+        this.routerExtensions.navigate(
+            [ '/', { outlets: { scanTab: ['scan-result', qrCodeResult] } }],
+        {
+            transition: { name: "fade" }
+        });
     }
 }

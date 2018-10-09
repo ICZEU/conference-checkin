@@ -6,6 +6,6 @@
     <StackLayout>
         <Label class="page-icon fa" text="&#xf002;"></Label>
         <Button text="Scan QR-Code" (tap)="scanBarcode()"></Button>
-        <Label [text]="result"></Label>
+        <Button text="Result" [nsRouterLink]="['../scan-result', '12345']"></Button>
     </StackLayout>
 </GridLayout>
