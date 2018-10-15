@@ -1,8 +1,12 @@
 <ActionBar class="action-bar">
-    <NavigationButton [nsRouterLink]="['../../scan']" android.systemIcon="ic_menu_back"></NavigationButton>
+    <NavigationButton [nsRouterLink]="['../scan']" android.systemIcon="ic_menu_back"></NavigationButton>
     <Label class="action-bar-title" text="Ergebnis"></Label>
 </ActionBar>
 
 <GridLayout>
+    <ActivityIndicator [busy]="isBusy" class="activity-indicator"
+        backgroundColor="lightgray" color="blue"
+        borderRadius="50" width="100" height="100">
+    </ActivityIndicator>
     <Label class="m-10 h3" verticalAlignment="top" [text]="data.qrCodeValue"></Label>
 </GridLayout>
