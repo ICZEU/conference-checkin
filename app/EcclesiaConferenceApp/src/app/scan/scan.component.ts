@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { BarcodeScanner } from "nativescript-barcodescanner";
 import { RouterExtensions } from "nativescript-angular/router";
+import { ScanData } from "../core/scan.data";
 
 @Component({
     selector: "Scan",
@@ -11,7 +12,8 @@ export class ScanComponent implements OnInit {
 
     constructor(
         private barcodeScanner: BarcodeScanner,
-        private routerExtensions: RouterExtensions
+        private routerExtensions: RouterExtensions,
+        private data: ScanData
     ) {}
 
     ngOnInit(): void {}
@@ -33,10 +35,9 @@ export class ScanComponent implements OnInit {
     }
 
     navigateToResultPage(qrCodeResult) {
+        this.data.qrCodeValue = qrCodeResult;
         this.routerExtensions.navigate(
-            [ '/', { outlets: { scanTab: ['scan-result', qrCodeResult] } }],
-        {
-            transition: { name: "fade" }
-        });
+            [ '/', { outlets: { scanTab: ['scan-result'] } }],
+            { transition: { name: "fade" } });
     }
 }

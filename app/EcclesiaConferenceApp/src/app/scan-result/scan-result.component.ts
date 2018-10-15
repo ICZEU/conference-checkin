@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ScanData } from "../core/scan.data";
 
 @Component({
     selector: "ScanResult",
@@ -7,15 +7,11 @@ import { ActivatedRoute } from "@angular/router";
     templateUrl: "./scan-result.component.html"
 })
 export class ScanResultComponent implements OnInit {
-    
-    id: any;
 
     constructor(
-        private route: ActivatedRoute
+        public data: ScanData
     ) { }
 
     ngOnInit(): void {
-        const id = +this.route.snapshot.params.id;
-        this.id = id;
     }
 }

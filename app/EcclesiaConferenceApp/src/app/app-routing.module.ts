@@ -16,7 +16,7 @@ const routes: Routes = [
     { path: "scan", component: ScanComponent, outlet: "scanTab" },
 
     { path: "item/:id", component: ItemDetailComponent, outlet: "homeTab" },
-    { path: "scan-result/:id", component: ScanResultComponent, outlet: "scanTab" }
+    { path: "scan-result", component: ScanResultComponent, outlet: "scanTab" }
 ];
 
 @NgModule({
