@@ -27,11 +27,4 @@ export class ScanResultComponent implements OnInit {
         this.isBusy = false;
         this.isValid = true;
     }
-
-    getClass() {
-        return {
-            'valid': !this.isBusy && this.isValid,
-            'invalid': !this.isBusy && !this.isValid
-        };
-    }
 }

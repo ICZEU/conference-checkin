@@ -3,12 +3,24 @@
     <Label class="action-bar-title" text="Ergebnis"></Label>
 </ActionBar>
 
-<StackLayout class="page" [ngClass]="getClass()">
-    <ActivityIndicator [busy]="isBusy" class="activity-indicator"
-        backgroundColor="lightgray" color="blue"
-        borderRadius="50" width="100" height="100">
-    </ActivityIndicator>
-    <Label class="fa success text-center" text="&#xf05d;"></Label>
-    <Label class="fa error text-center" text="&#xf05c;"></Label>
-    <Label class="m-10 h3" [text]="data.qrCodeValue"></Label>
-</StackLayout>
+<GridLayout>
+    <ScrollView class="page">
+        <StackLayout [ngClass]="{'valid': !isBusy && isValid, 'invalid': !isBusy && !isValid }">
+            <ActivityIndicator [busy]="isBusy"
+                [ngClass]="{'activity-indicator': isBusy, 'hidden': !isBusy }"
+                backgroundColor="lightgray" color="blue"
+                borderRadius="50" width="100" height="100" marginTop="50">
+            </ActivityIndicator>
+            <!-- success page -->
+            <StackLayout [ngClass]="{'hidden': isBusy || !isValid}">
+                <Label class="fa text-center" text="&#xf05d;"></Label>
+                <Label class="m-10 h3" [text]="data.qrCodeValue"></Label>
+            </StackLayout>
+            <!-- error page -->
+            <StackLayout [ngClass]="{'hidden': isBusy || isValid}">
+                <Label class="fa text-center" text="&#xf05c;"></Label>
+                <Label class="m-10 h3" [text]="data.qrCodeValue"></Label>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
