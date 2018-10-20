@@ -5,11 +5,13 @@ import { TicketService } from "../core/ticket.service";
 @Component({
     selector: "ScanResult",
     moduleId: module.id,
-    templateUrl: "./scan-result.component.html"
+    templateUrl: "./scan-result.component.html",
+    styleUrls: ["./scan-result.component.scss"]
 })
 export class ScanResultComponent implements OnInit {
 
     isBusy: boolean = true;
+    isValid: boolean = true;
 
     constructor(
         public data: ScanData,
@@ -23,5 +25,13 @@ export class ScanResultComponent implements OnInit {
     async validateTicket() {
         await this.ticketService.validateTicket("12345");
         this.isBusy = false;
+        this.isValid = true;
+    }
+
+    getClass() {
+        return {
+            'valid': !this.isBusy && this.isValid,
+            'invalid': !this.isBusy && !this.isValid
+        };
     }
 }

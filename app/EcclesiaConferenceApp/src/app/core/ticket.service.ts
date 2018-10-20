@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
 export class TicketService {
 
     async validateTicket(id: any) {
-        return new Promise(resolve => setTimeout(resolve, 3000));
+        return new Promise(resolve => setTimeout(resolve, 1500));
     }
 }

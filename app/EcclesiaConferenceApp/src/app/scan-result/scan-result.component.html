@@ -3,10 +3,12 @@
     <Label class="action-bar-title" text="Ergebnis"></Label>
 </ActionBar>
 
-<GridLayout>
+<StackLayout class="page" [ngClass]="getClass()">
     <ActivityIndicator [busy]="isBusy" class="activity-indicator"
         backgroundColor="lightgray" color="blue"
         borderRadius="50" width="100" height="100">
     </ActivityIndicator>
-    <Label class="m-10 h3" verticalAlignment="top" [text]="data.qrCodeValue"></Label>
-</GridLayout>
+    <Label class="fa success text-center" text="&#xf05d;"></Label>
+    <Label class="fa error text-center" text="&#xf05c;"></Label>
+    <Label class="m-10 h3" [text]="data.qrCodeValue"></Label>
+</StackLayout>
