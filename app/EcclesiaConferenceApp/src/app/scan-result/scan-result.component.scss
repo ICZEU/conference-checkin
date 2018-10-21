@@ -1,11 +1,16 @@
 @import '../../app-variables';
 
 .valid {
-    background-color: $success-light;
+    background-color: $success-dark;
 }
 .invalid {
-    background-color: $error-light;
+    background-color: $error-dark;
 }
 .fa {
     font-size: 120;
+}
+.page {
+    Label, .fa {
+        color: $text-color;
+    }
 }

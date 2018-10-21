@@ -5,7 +5,7 @@
 <GridLayout class="page page-content">
     <StackLayout>
         <Label class="page-icon fa" text="&#xf002;"></Label>
-        <Button text="Scan QR-Code" (tap)="scanBarcode()"></Button>
-        <Button text="Result" [nsRouterLink]="['../scan-result']"></Button>
+        <Button text="Scan QR-Code" (tap)="scanBarcode()" class="btn btn-primary"></Button>
+        <Button text="Demo" (tap)="sampleBarcode()" class="btn btn-primary"></Button>
     </StackLayout>
 </GridLayout>

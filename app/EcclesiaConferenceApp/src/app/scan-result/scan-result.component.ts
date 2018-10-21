@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ScanData } from "../core/scan.data";
-import { TicketService } from "../core/ticket.service";
+import { SessionService } from "../core/session.service";
+import { TicketService, Ticket } from "../core/ticket.service";
 
 @Component({
     selector: "ScanResult",
@@ -12,19 +12,33 @@ export class ScanResultComponent implements OnInit {
 
     isBusy: boolean = true;
     isValid: boolean = true;
+    ticket: Ticket;
 
     constructor(
-        public data: ScanData,
+        public session: SessionService,
         private ticketService: TicketService
-    ) { }
-
-    ngOnInit(): void {
-        this.validateTicket();
+    ) { 
+        if (!session.qrCodeValue) {
+            throw "no qr code was scanned.";
+        }
     }
 
-    async validateTicket() {
-        await this.ticketService.validateTicket("12345");
+    ngOnInit(): void {
+        this.validateQrCode();
+    }
+
+    async validateQrCode() {
+        let result = await this.ticketService.validateQrCode(this.session.qrCodeValue);
         this.isBusy = false;
-        this.isValid = true;
+        this.isValid = result.valid;
+        this.ticket = result;
+    }
+
+    getKeys(obj: any) {
+        let keys = [];
+        for(let key in obj) {
+            keys.push(key);
+        }
+        return keys;
     }
 }

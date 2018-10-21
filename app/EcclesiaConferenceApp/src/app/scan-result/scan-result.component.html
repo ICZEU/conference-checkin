@@ -6,21 +6,37 @@
 <GridLayout>
     <ScrollView class="page">
         <StackLayout [ngClass]="{'valid': !isBusy && isValid, 'invalid': !isBusy && !isValid }">
+
             <ActivityIndicator [busy]="isBusy"
                 [ngClass]="{'activity-indicator': isBusy, 'hidden': !isBusy }"
                 backgroundColor="lightgray" color="blue"
                 borderRadius="50" width="100" height="100" marginTop="50">
             </ActivityIndicator>
+            
             <!-- success page -->
             <StackLayout [ngClass]="{'hidden': isBusy || !isValid}">
                 <Label class="fa text-center" text="&#xf05d;"></Label>
-                <Label class="m-10 h3" [text]="data.qrCodeValue"></Label>
+                <StackLayout class="p-10" *ngIf="ticket">
+                    <Label class="font-weight-bold" text="Ticketnummer"></Label>
+                    <Label class="m-b-10" [text]="ticket.id" textWrap="true"></Label>
+                    <StackLayout *ngFor="let key of getKeys(ticket.personalData)">
+                        <Label class="font-weight-bold" [text]="key"></Label>
+                        <Label class="m-b-10" [text]="ticket.personalData[key]" textWrap="true"></Label>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
+
             <!-- error page -->
             <StackLayout [ngClass]="{'hidden': isBusy || isValid}">
                 <Label class="fa text-center" text="&#xf05c;"></Label>
-                <Label class="m-10 h3" [text]="data.qrCodeValue"></Label>
+                <StackLayout class="p-10">
+                    <Label class="font-weight-bold" text="QR-Code"></Label>
+                    <Label class="m-b-10" [text]="session.qrCodeValue" textWrap="true"></Label>
+                </StackLayout>
             </StackLayout>
+
+            <Button text="Weiter" [nsRouterLink]="['../scan']" [ngClass]="{'m-l-10 m-r-10': true, 'hidden': isBusy}"></Button>
+
         </StackLayout>
     </ScrollView>
 </GridLayout>

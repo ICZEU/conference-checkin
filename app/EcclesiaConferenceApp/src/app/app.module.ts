@@ -5,8 +5,6 @@ import { BarcodeScanner } from 'nativescript-barcodescanner';
 import { AppRoutingModule, COMPONENTS } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
-import { ScanData } from "./core/scan.data";
-import { TicketService } from "./core/ticket.service";
 
 export function createBarcodeScanner() {
     return new BarcodeScanner();
@@ -27,8 +25,6 @@ export function createBarcodeScanner() {
     ],
     providers: [
         { provide: BarcodeScanner, useFactory: (createBarcodeScanner) },
-        ScanData,
-        TicketService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
