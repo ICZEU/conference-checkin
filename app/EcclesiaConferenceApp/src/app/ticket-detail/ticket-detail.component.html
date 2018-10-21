@@ -1,0 +1,22 @@
+<ActionBar class="action-bar">
+    <NavigationButton [nsRouterLink]="['../../tickets']" android.systemIcon="ic_menu_back"></NavigationButton>
+    <Label class="action-bar-title" [text]="ticket.title"></Label>
+</ActionBar>
+
+<GridLayout>
+    <ScrollView class="page">
+        <StackLayout class="p-10" *ngIf="ticket">
+
+            <Label class="font-weight-bold" text="Ticketnummer"></Label>
+            <Label class="m-b-10" [text]="ticket.id" textWrap="true"></Label>
+
+            <Label class="font-weight-bold" text="Erfasst um"></Label>
+            <Label class="m-b-10" text="{{ ticket.validatedAt | date:'hh:mm' }}" textWrap="true"></Label>
+
+            <StackLayout *ngFor="let key of getKeys(ticket.personalData)">
+                <Label class="font-weight-bold" [text]="key"></Label>
+                <Label class="m-b-10" [text]="ticket.personalData[key]" textWrap="true"></Label>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>

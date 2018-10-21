@@ -1,0 +1,15 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Tickets"></Label>
+</ActionBar>
+
+<GridLayout class="page page-content">
+    <ListView [items]="tickets" class="list-group">
+        <ng-template let-item="item">
+            <Label [nsRouterLink]="['../ticket', item.id]" [text]="item.title" class="list-group-item"></Label>
+        </ng-template>
+    </ListView>
+    <StackLayout *ngIf="tickets === null || tickets.length === 0" class="p-10">
+        <Label textWrap="true" class="m-t-10 m-b-10 font-weight-bold" text="Es wurden noch keine Tickets gescannt."></Label>
+        <Label textWrap="true" class="m-b-10" text='Tippe auf den Reiter "SCAN", um Tickets zu kontrollieren, indem du den QR-Code scannst.'></Label>
+    </StackLayout>
+</GridLayout>

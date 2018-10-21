@@ -2,20 +2,20 @@ import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
-import { HomeComponent } from "./home/home.component";
-import { ItemDetailComponent } from "./item-detail/item-detail.component";
+import { TicketsComponent } from './tickets/tickets.component';
+import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { ScanComponent } from "./scan/scan.component";
 import { ScanResultComponent } from "./scan-result/scan-result.component";
 
-export const COMPONENTS = [HomeComponent, ItemDetailComponent, ScanComponent, ScanResultComponent];
+export const COMPONENTS = [TicketsComponent, TicketDetailComponent, ScanComponent, ScanResultComponent];
 
 const routes: Routes = [
-    { path: "", redirectTo: "/(homeTab:home//scanTab:scan)", pathMatch: "full" },
+    { path: "", redirectTo: "/(ticketsTab:tickets//scanTab:scan)", pathMatch: "full" },
 
-    { path: "home", component: HomeComponent, outlet: "homeTab" },
+    { path: "tickets", component: TicketsComponent, outlet: "ticketsTab" },
     { path: "scan", component: ScanComponent, outlet: "scanTab" },
 
-    { path: "item/:id", component: ItemDetailComponent, outlet: "homeTab" },
+    { path: "ticket/:id", component: TicketDetailComponent, outlet: "ticketsTab" },
     { path: "scan-result", component: ScanResultComponent, outlet: "scanTab" }
 ];
 
