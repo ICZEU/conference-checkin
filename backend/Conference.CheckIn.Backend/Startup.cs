@@ -1,3 +1,4 @@
+using Conference.CheckIn.Backend.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,6 +23,8 @@ namespace Conference.CheckIn.Backend
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSignalR();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -42,8 +45,14 @@ namespace Conference.CheckIn.Backend
             }
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseSignalR(options =>
+            {
+                options.MapHub<TicketHub>("/tickets");
+            });
 
             app.UseMvc(routes =>
             {
