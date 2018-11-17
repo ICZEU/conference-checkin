@@ -1,9 +1,11 @@
 using Conference.CheckIn.Backend.Hubs;
+using Conference.CheckIn.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,8 +23,9 @@ namespace Conference.CheckIn.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<ConferenceDbContext>();
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR();
 
             // In production, the Angular files will be served from this directory
@@ -33,8 +36,11 @@ namespace Conference.CheckIn.Backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ConferenceDbContext dbContext)
         {
+            dbContext.Database.Migrate();
+            dbContext.AddDemoData();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
